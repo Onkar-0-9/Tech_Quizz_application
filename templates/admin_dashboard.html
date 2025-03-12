@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+        <a href="{{ url_for('logout') }}">Logout</a>
+        <h2>Add Question</h2>
+        <form action="{{ url_for('add_question') }}" method="POST">
+            <label for="question">Question:</label>
+            <input type="text" id="question" name="question" required><br>
+
+            <label for="option1">Option 1:</label>
+            <input type="text" id="option1" name="option1" required><br>
+
+            <label for="option2">Option 2:</label>
+            <input type="text" id="option2" name="option2" required><br>
+
+            <label for="option3">Option 3:</label>
+            <input type="text" id="option3" name="option3" required><br>
+
+            <label for="option4">Option 4:</label>
+            <input type="text" id="option4" name="option4" required><br>
+
+            <label for="answer">Correct Answer:</label>
+            <input type="text" id="answer" name="answer" required><br>
+
+            <button type="submit">Add Question</button>
+        </form>
+        <h2>Users</h2>
+        <ul>
+            {% for user in users %}
+                <li>{{ user.username }} ({{ user.role }})</li>
+            {% endfor %}
+        </ul>
+        <h2>Questions</h2>
+        <ul>
+            {% for question in questions %}
+                <li>{{ question.question }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

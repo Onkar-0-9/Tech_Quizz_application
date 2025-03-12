@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Quiz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .option {
+            margin: 10px;
+            padding: 10px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            text-align: left;
+        }
+        .option:hover {
+            background-color: #f0f0f0;
+        }
+        .option-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .option-btn.selected {
+            background-color: #e0e0ff;
+        }
+        #quiz-screen, #results {
+            display: none;
+        }
+        .progress {
+            margin: 20px 0;
+            font-size: 1.1em;
+            color: #666;
+        }
+        .selected {
+            background-color: #cce5ff;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .logout-btn {
+            padding: 8px 16px;
+            background-color: #ff4444;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .start-quiz-btn {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .start-quiz-btn:hover {
+            background-color: #45a049;
+        }
+        #submit-btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #submit-btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Student Dashboard</h1>
+            <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+        </div>
+
+        <div id="start-screen">
+            <h2>Welcome to the Quiz</h2>
+            <p>Test your knowledge with our interactive quiz!</p>
+            <button onclick="startQuiz()" class="start-quiz-btn">Start Quiz</button>
+        </div>
+
+        <div id="quiz-screen">
+            <div class="progress">
+                Question <span id="current-question">0</span> of <span id="total-questions">0</span>
+            </div>
+            <h2 id="question"></h2>
+            <div id="options"></div>
+            <button id="submit-btn" disabled>Submit Answer</button>
+            <p>Score: <span id="score">0</span></p>
+        </div>
+
+        <div id="results"></div>
+
+        <div class="previous-results">
+            <h2>Your Previous Results</h2>
+            <ul>
+                {% for result in results %}
+                    <li>Quiz: {{ result.quiz_name }}, Score: {{ result.score }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tech Quiz</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Tech Quiz</h1>
+            {% if error %}
+                <p class="error">{{ error }}</p>
+            {% endif %}
+            {% if not session.user_id %}
+                <div id="login-register">
+                    <a href="{{ url_for('login') }}">Login</a> | <a href="{{ url_for('register') }}">Register</a>
+                </div>
+            {% else %}
+                <p>Welcome, {{ session.user_role }}!</p>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            {% endif %}
+            <div id="start-screen" style="display: {% if session.user_id %}none{% else %}block{% endif %};">
+                <p>Please login or register to start the quiz.</p>
+            </div>
+            <div id="quiz-screen" style="display: none;">
+                <div id="question-container">
+                    <h2 id="question"></h2>
+                    <div id="options"></div>
+                    <button onclick="submitAnswer()" id="submit-button">Submit</button>
+                </div>
+                <div id="score-display">
+                    <p>Score: <span id="score">0</span></p>
+                </div>
+            </div>
+            <div id="results-screen" style="display: none;">
+                <h2>Quiz Results</h2>
+                <p>Name: <span id="result-username"></span></p>
+                <p>Final Score: <span id="final-score"></span></p>
+                <button onclick="location.reload()">Restart Quiz</button>
+            </div>
+        </div>
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
+    </body>
+    </html>
